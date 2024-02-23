@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -19,7 +18,7 @@ public class kysymystenhallinta {
 
     private Map<Integer, visailu> kysymykset = new HashMap<>();
 
-    // Tähän lisätään kysymykset
+    // Tässä on kysymykset
     public kysymystenhallinta () {
         kysymykset.put(1, new visailu(1, "Mikä on Suomen pääkaupunki?", "Helsinki" ));
         kysymykset.put(2, new visailu(2, "Mikä on maailman suurin valtameri?", "Tyyni valtameri" ));
@@ -56,21 +55,19 @@ public class kysymystenhallinta {
     // Tämä näyttää pelin ohjeet
     @GetMapping("/")
     public String index () {
-        return "Tervetuloa visailupeliin! Voit pelata Postmanilla GET-pyynnöllä kysymyksen ID:llä (1-30) ja POST-pyynnöllä antaa vastauksen.";
+        return "Tervetuloa visailupeliin! Voit pelata Postmanilla GET-pyynnöllä kysymyksen ja POST-pyynnöllä antaa vastauksen kysymyksessä olevan ID:n perusteella.";
     }
 
-    // Tämä näyttä kysymyksen    
-
-
+    // Tämä arpoo yhden 30 kysymyksestä ja näyttää sen   
     @GetMapping("/kysymys/random")
     public String getRandomKysymys() {
         Random random = new Random();
-        int randomId = random.nextInt(30) + 1; // Arvotaan satunnainen ID välillä 1-30
+        int randomId = random.nextInt(30) + 1;
         visailu q = kysymykset.get(randomId);
         return q != null ? "ID: " + q.getId() + ", Kysymys: " + q.getKysymys() : "Kysymystä ei löytynyt.";
     }
 
-    // Tämän pyynnön avulla voidaan antaa vastaus
+    // Tämän pyynnön avulla voidaan antaa vastaus ja tarkistaa onko se oikein vai väärin
     @PostMapping("/vastaus")
     public String checkVastaus(@RequestBody Map<String, String> data) {
         int id = Integer.parseInt(data.get("id"));
@@ -81,8 +78,8 @@ public class kysymystenhallinta {
             return "Virheellinen kysymyksen ID.";
         }
 
-        String oikeatVastaus = q.getVastaus().toLowerCase();
-        if (kayttajaVastaus.equals(oikeatVastaus)) {
+        String oikeaVastaus = q.getVastaus().toLowerCase();
+        if (kayttajaVastaus.equals(oikeaVastaus)) {
             return "Vastaus oikein!";
         } else {
             return "Väärä vastaus. Yritä uudelleen.";
