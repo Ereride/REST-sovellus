@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 
 @RestController
@@ -59,10 +60,14 @@ public class kysymystenhallinta {
     }
 
     // Tämä näyttä kysymyksen    
-    @GetMapping("/kysymys")
-    public String getKysymys(@RequestParam(defaultValue = "1")int id){
-        visailu q = kysymykset.get(id);
-        return q != null ? q.getKysymys() : "Kysymystä ei löytynyt.";
+
+
+    @GetMapping("/kysymys/random")
+    public String getRandomKysymys() {
+        Random random = new Random();
+        int randomId = random.nextInt(30) + 1; // Arvotaan satunnainen ID välillä 1-30
+        visailu q = kysymykset.get(randomId);
+        return q != null ? "ID: " + q.getId() + ", Kysymys: " + q.getKysymys() : "Kysymystä ei löytynyt.";
     }
 
     // Tämän pyynnön avulla voidaan antaa vastaus
