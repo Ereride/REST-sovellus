@@ -2,7 +2,7 @@ package com.peli.visailu;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -58,6 +58,13 @@ public class kysymystenhallinta {
         return "Tervetuloa visailupeliin! Voit pelata Postmanilla GET-pyynnöllä kysymyksen ja POST-pyynnöllä antaa vastauksen kysymyksessä olevan ID:n perusteella.";
     }
 
+    // Tällä voit pyytää kysymyksen ID:n mukaan 1-30 väliltä
+    @GetMapping ("/kysymys")
+    public String getKysymys(@RequestParam(defaultValue = "1")int id){
+        visailu q = kysymykset.get(id);
+        return q != null ? "ID: " + q.getId() + ", Kysymys: " + q.getKysymys() : "Kysymystä ei löytynyt.";
+    }
+
     // Tämä arpoo yhden 30 kysymyksestä ja näyttää sen   
     @GetMapping("/kysymys/random")
     public String getRandomKysymys() {
@@ -66,7 +73,7 @@ public class kysymystenhallinta {
         visailu q = kysymykset.get(randomId);
         return q != null ? "ID: " + q.getId() + ", Kysymys: " + q.getKysymys() : "Kysymystä ei löytynyt.";
     }
-
+        
     // Tämän pyynnön avulla voidaan antaa vastaus ja tarkistaa onko se oikein vai väärin
     @PostMapping("/vastaus")
     public String checkVastaus(@RequestBody Map<String, String> data) {
