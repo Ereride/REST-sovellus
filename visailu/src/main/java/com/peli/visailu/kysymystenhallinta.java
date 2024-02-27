@@ -55,7 +55,7 @@ public class kysymystenhallinta {
     // Tämä näyttää pelin ohjeet
     @GetMapping("/")
     public String index () {
-        return "Tervetuloa visailupeliin! Voit pelata Postmanilla GET-pyynnöllä kahdella eri tapaa. 1. GET tapa /api/kysymys?id=Nro Nro kohdalle laitetaan numero 1-30, jolloin saadaan sen Id:n kysymys. 2. GET tapa /api/kysymys/random: Palauttaa satunnaisen kysymyksen. Vastauksen antaminen tapahtuu POST-pyynnöllä antamalla vastaus ID:n perusteella. Sen jälkeen kerrotaan, onko vastaus oikein vai väärin.";
+        return "Tervetuloa visailupeliin! Voit pelata Postmanilla GET-pyynnöllä kahdella eri tapaa. 1. GET tapa /api/kysymys?id=Nro: Nro kohdalle laitetaan numero 1-30, jolloin saadaan sen ID:n kysymys. 2. GET tapa /api/kysymys/random: Palauttaa satunnaisen kysymyksen. Vastauksen antaminen tapahtuu POST-pyynnöllä antamalla vastaus ID:n perusteella. Sen jälkeen kerrotaan, onko vastaus oikein vai väärin.";
     }
 
     // Tällä voit pyytää kysymyksen ID:n mukaan 1-30 väliltä
