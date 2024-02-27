@@ -11,7 +11,7 @@ Tämä on yksinkertainen REST-palvelu, joka tarjoaa visailupelin toiminnallisuud
 ## REST-endpointit
 
 - **GET /api/**: Näyttää pelin ohjeet.
-- - **GET /api/kysymys?id=Nro**:Palauttaa Nro kohdalle kirjatun ID:n mukaisen kysymyksen. Kysymyksiä löytyy ID 1-30.
+- **GET /api/kysymys?id=Nro**:Palauttaa Nro kohdalle kirjatun ID:n mukaisen kysymyksen. Kysymyksiä löytyy ID 1-30.
 - **GET /api/kysymys/random**: Palauttaa satunnaisen kysymyksen.
 - **POST /api/vastaus**: Tarkistaa vastauksen ja palauttaa oikeellisuuden.
 
